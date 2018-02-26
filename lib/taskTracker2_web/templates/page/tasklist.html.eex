@@ -1,0 +1,78 @@
+<%= if @current_user do %>
+<%= if @current_user.is_manager do %>
+<div class="row">
+  <div class="col">
+    <%= render TaskTracker2Web.TaskView, "form.html", Map.put(assigns, :action, task_path(@conn, :create)) %>
+  </div>
+</div>
+<% end %>
+<% end %>
+
+<script>
+  window.timespent_path = "<%=  time_blocks_path(@conn, :index) %>";
+</script>
+
+
+<h1>Task Report</h1>
+<div class="table">
+<div class="row">
+  <div class="col">
+    <strong>User</strong>
+  </div>
+  <div class="col">
+    <strong>Title</strong>
+  </div>
+  <div class="col">
+    <strong>Description</strong>
+  </div>
+  <div class="col">
+    <strong>Completed</strong>
+  </div>
+  <div class="col">
+    <strong>Start Time</strong>
+  </div>
+  <div class="col">
+    <strong>Stop Time</strong>
+  </div>
+  <div class="col">
+  </div>
+</div>
+<%= Enum.map @tasks, fn task -> %>
+<div class="row">
+  <div class="col">
+    <%= task.user.name %>
+  </div>
+  <div class="col">
+    <%= task.title %>
+  </div>
+  <div class="col">
+    <%= task.description %>
+  </div>
+  <div class="col">
+    <%= task.completed %>
+  </div>
+  <div class="col">
+    <td><%= task.start_time %></td>
+  </div>
+  <div class="col">
+    <td><%= task.stop_time %></td>
+  </div>
+  <div class="col">
+    <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
+    <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+    <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+    <button class="timespent-button btn btn-secondary btn-xs"
+            data-task-id="<%= task.id %>"
+            data-task-user-id="<%= task.user.id %>"
+            data-task-title="<%= task.title %>"
+            data-task-desc="<%= task.description %>"
+            data-task-comp="<%= task.completed %>"
+            data-task-start="<%= task.start_time %>"
+            data-task-end="<%= task.stop_time %>"
+            data-isworking="no">
+            Start Working
+    </button>
+  </div>
+</div>
+<% end %>
+</div>

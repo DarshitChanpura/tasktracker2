@@ -1,0 +1,38 @@
+<h2>Task Report</h2>
+
+<ul>
+  <li>
+    <strong>User:</strong>
+    <%= @task.user.name %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @task.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @task.description %>
+  </li>
+
+  <li>
+    <strong>Completed:</strong>
+    <%= @task.completed %>
+  </li>
+
+  <li>
+    <strong>Start Time:</strong>
+    <%= @task.start_time %>
+  </li>
+
+  <li>
+    <strong>Stop Time:</strong>
+    <%= @task.stop_time %>
+  </li>
+</ul>
+
+<span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
+<br>
+<span><%= link "Back to tasklist", to: "/tasklist"%></span>
+<!--<span><%= link "Back", to: task_path(@conn, :index) %></span> -->

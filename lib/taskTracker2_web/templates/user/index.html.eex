@@ -1,0 +1,44 @@
+<h2>Listing Users</h2>
+<script>
+  window.manage_path = "<%=  manager_path(@conn, :index) %>";
+  window.current_user = "<%= @current_user.id %>"
+</script>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Manager</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @users do %>
+    <tr>
+      <td>
+        <%= if @current_user.is_manager or user.id == @current_user.id do %>
+        <button class="manage-button btn btn-secondary"
+                data-user-id="<%= user.id %>"
+                data-manager="<%= @managers[user.id] %>">
+                Manage
+        </button>
+        <% end %>
+
+      </td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.is_manager %></td>
+      <td class="text-right">
+        <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+
+<% end %>
+  </tbody>
+</table>
+
+<!-- <span><%= link "New User", to: user_path(@conn, :new) %></span> -->

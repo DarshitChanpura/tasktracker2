@@ -1,0 +1,42 @@
+<h2>Show User</h2>
+
+<ul>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </li>
+  <li>
+    <strong>Manager?:</strong>
+    <%= @user.is_manager %>
+  </li>
+
+  <li>
+    <strong>Managers:</strong>
+    <ul>
+      <%= for {manager} <- @managers do %>
+        <li><%= manager %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Underlings:</strong>
+    <ul>
+      <%= for {underling} <- @underlings do %>
+        <li><%= underling %></li>
+      <% end %>
+    </ul>
+  </li>
+
+
+</ul>
+
+<span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
+<br>
+<span><%= link "Back", to: page_path(@conn, :index) %></span>
